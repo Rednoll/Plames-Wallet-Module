@@ -9,6 +9,7 @@ import com.inwaiders.plames.api.event.EventEngine;
 import com.inwaiders.plames.api.event.EventStage;
 import com.inwaiders.plames.api.user.User;
 import com.inwaiders.plames.domain.messenger.profile.impl.SystemProfile;
+import com.inwaiders.plames.domain.module.impl.ModuleBase;
 import com.inwaiders.plames.domain.user.events.UserCreateEvent;
 import com.inwaiders.plames.domain.user.impl.UserImpl;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
@@ -27,13 +28,17 @@ import com.inwaiders.plames.modules.wallet.domain.wallet.WalletHlRepository;
 import com.inwaiders.plames.modules.wallet.domain.wallet.handlers.CreateCurrencyWalletHandler;
 import com.inwaiders.plames.modules.wallet.domain.wallet.handlers.CreateUserWalletHandler;
 import com.inwaiders.plames.modules.wallet.domain.wallet.impl.WalletImpl;
-import com.inwaiders.plames.modules.webcontroller.domain.module.WebDescribedModuleBase;
+import com.inwaiders.plames.modules.webcontroller.domain.module.BaseWebDescription;
+import com.inwaiders.plames.modules.webcontroller.domain.module.WebDescribedModule;
+import com.inwaiders.plames.modules.webcontroller.domain.module.WebDescription;
 import com.inwaiders.plames.modules.webcontroller.domain.module.button.Button;
 import com.inwaiders.plames.spring.ApplicationContextProvider;
 
-public class WalletModule extends WebDescribedModuleBase {
+public class WalletModule extends ModuleBase implements WebDescribedModule {
 
 	private static WalletModule INSTANCE = new WalletModule();
+	
+	private BaseWebDescription webDescription = new BaseWebDescription();
 	
 	public WalletModule() {
 		
@@ -44,7 +49,7 @@ public class WalletModule extends WebDescribedModuleBase {
 			walletCurrencies.setBordersColor("#9EBFD8");
 			walletCurrencies.setTargetPage("/wallet/currencies");
 	
-		this.buttons.add(walletCurrencies);
+		webDescription.addButton(walletCurrencies);
 	}
 	
 	@Override
@@ -114,6 +119,11 @@ public class WalletModule extends WebDescribedModuleBase {
 		}
 	}
 
+	public WebDescription getWebDescription() {
+		
+		return this.webDescription;
+	}
+	
 	@Override
 	public String getName() {
 	
