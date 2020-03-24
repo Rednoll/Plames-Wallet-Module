@@ -17,12 +17,14 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.inwaiders.plames.api.event.EventEngine;
 import com.inwaiders.plames.api.event.EventStage;
 import com.inwaiders.plames.api.locale.PlamesLocale;
+import com.inwaiders.plames.dao.EntityLink;
 import com.inwaiders.plames.modules.wallet.dao.currency.CurrencyRepository;
 import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountImpl;
 import com.inwaiders.plames.modules.wallet.domain.currency.Currency;
 import com.inwaiders.plames.modules.wallet.domain.currency.CurrencyHlRepository;
 import com.inwaiders.plames.modules.wallet.domain.events.CreateCurrencyEvent;
 import com.inwaiders.plames.modules.wallet.spring.WalletSpringPortal;
+import com.inwaiders.plames.spring.SpringUtils;
 
 @Entity(name = "Currency")
 @Table(name = "wallet_currencies")
@@ -349,6 +351,12 @@ public class CurrencyImpl implements Currency {
 			
 			return null;
 		}	
+		
+		@Override
+		public EntityLink getLink(CurrencyImpl entity) {
+			
+			return new EntityLink(SpringUtils.getEntityName(entity), entity.getId());
+		}
 		
 		public CurrencyImpl parseBySign(String aliase) {
 			

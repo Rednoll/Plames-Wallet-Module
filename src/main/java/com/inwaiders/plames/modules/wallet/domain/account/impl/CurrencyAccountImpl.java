@@ -20,12 +20,14 @@ import javax.persistence.Table;
 import com.inwaiders.plames.api.user.User;
 import com.inwaiders.plames.api.utils.DescribedFunctionResult;
 import com.inwaiders.plames.api.utils.DescribedFunctionResult.Status;
+import com.inwaiders.plames.dao.EntityLink;
 import com.inwaiders.plames.domain.user.impl.UserImpl;
 import com.inwaiders.plames.modules.wallet.dao.account.CurrencyAccountRepository;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccountHlRepository;
 import com.inwaiders.plames.modules.wallet.domain.currency.Currency;
 import com.inwaiders.plames.modules.wallet.domain.currency.impl.CurrencyImpl;
+import com.inwaiders.plames.spring.SpringUtils;
 
 @Entity(name = "CurrencyAccount")
 @Table(name = "wallet_currency_accounts")
@@ -295,6 +297,12 @@ public class CurrencyAccountImpl implements CurrencyAccount {
 		public CurrencyAccountImpl create(Currency currency, String name) {
 			
 			return CurrencyAccountImpl.create(currency, name);
+		}
+		
+		@Override
+		public EntityLink getLink(CurrencyAccountImpl entity) {
+			
+			return new EntityLink(SpringUtils.getEntityName(entity.getClass()), entity.getId());
 		}
 		
 		public CurrencyAccountImpl getById(Long id) {

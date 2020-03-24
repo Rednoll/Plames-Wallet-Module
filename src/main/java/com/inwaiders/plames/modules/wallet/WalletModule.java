@@ -54,7 +54,8 @@ public class WalletModule extends WebDescribedModuleBase {
 		CurrencyHlRepository.setRepository(new CurrencyImpl.HighLevelRepository());
 		CurrencyAccountHlRepository.setRepository(new CurrencyAccountImpl.HighLevelRepository());
 	
-		CommandRegistry.registerCommand(new WalletCommand());
+		CommandRegistry registry = CommandRegistry.getDefaultRegistry();
+			registry.registerCommand(new WalletCommand());
 	}
 	
 	@Override
