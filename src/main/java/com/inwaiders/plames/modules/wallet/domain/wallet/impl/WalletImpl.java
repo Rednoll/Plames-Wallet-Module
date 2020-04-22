@@ -21,7 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.inwaiders.plames.modules.wallet.dao.wallet.WalletRepository;
-import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
+import com.inwaiders.plames.modules.wallet.domain.account.PrivateCurrencyAccount;
 import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.currency.Currency;
 import com.inwaiders.plames.modules.wallet.domain.currency.impl.CurrencyImpl;
@@ -51,7 +51,7 @@ public class WalletImpl implements Wallet {
 	@OneToMany(cascade = CascadeType.ALL, targetEntity = CurrencyAccountBase.class, orphanRemoval = true, fetch = FetchType.EAGER)
 	@MapKeyJoinColumn(name = "currency_id")
 	@MapKeyClass(CurrencyImpl.class)
-	private Map<Currency, CurrencyAccount> privateAccounts = new HashMap<>();
+	private Map<Currency, PrivateCurrencyAccount> privateAccounts = new HashMap<>();
 	
 	@Column(name = "deleted")
 	private volatile boolean deleted = false;
@@ -103,19 +103,19 @@ public class WalletImpl implements Wallet {
 	}
 
 	@Override
-	public void addPrivateAccount(CurrencyAccount account) {
+	public void addPrivateAccount(PrivateCurrencyAccount account) {
 		
 		privateAccounts.put(account.getCurrency(), account);
 	}
 	
 	@Override
-	public CurrencyAccount getPrivateAccount(Currency currency) {
+	public PrivateCurrencyAccount getPrivateAccount(Currency currency) {
 		
 		return privateAccounts.get(currency);
 	}
 	
 	@Override
-	public Collection<CurrencyAccount> getPrivateAccounts() {
+	public Collection<PrivateCurrencyAccount> getPrivateAccounts() {
 		
 		return privateAccounts.values();
 	}

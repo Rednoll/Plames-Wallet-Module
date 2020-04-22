@@ -3,7 +3,7 @@ package com.inwaiders.plames.modules.wallet.domain.commands;
 import java.util.Collection;
 
 import com.inwaiders.plames.modules.wallet.WalletModule;
-import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
+import com.inwaiders.plames.modules.wallet.domain.account.PrivateCurrencyAccount;
 import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.currency.Currency;
 import com.inwaiders.plames.modules.wallet.domain.currency.impl.CurrencyImpl;
@@ -45,9 +45,9 @@ public class WalletCommand extends MessengerCommand {
 				
 				builder.append(user.getNickname()+"'s wallet:\n");
 				
-				Collection<CurrencyAccount> accounts = wallet.getPrivateAccounts();
+				Collection<PrivateCurrencyAccount> accounts = wallet.getPrivateAccounts();
 			
-				for(CurrencyAccount account : accounts) {
+				for(PrivateCurrencyAccount account : accounts) {
 					
 					Currency currency = account.getCurrency();
 			
