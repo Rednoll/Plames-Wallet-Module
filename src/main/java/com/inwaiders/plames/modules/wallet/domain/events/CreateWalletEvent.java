@@ -1,7 +1,8 @@
 package com.inwaiders.plames.modules.wallet.domain.events;
 
-import com.inwaiders.plames.api.event.PlamesEvent;
 import com.inwaiders.plames.modules.wallet.domain.wallet.Wallet;
+
+import enterprises.inwaiders.plames.api.event.PlamesEvent;
 
 public class CreateWalletEvent implements PlamesEvent {
 

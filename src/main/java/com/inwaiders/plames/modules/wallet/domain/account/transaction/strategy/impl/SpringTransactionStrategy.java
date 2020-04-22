@@ -5,13 +5,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inwaiders.plames.api.user.User;
-import com.inwaiders.plames.api.utils.DescribedFunctionResult;
-import com.inwaiders.plames.api.utils.DescribedFunctionResult.Status;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
 import com.inwaiders.plames.modules.wallet.domain.account.transaction.Transaction;
 import com.inwaiders.plames.modules.wallet.domain.account.transaction.strategy.TransactionStrategy;
 import com.inwaiders.plames.modules.wallet.domain.currency.Currency;
+
+import enterprises.inwaiders.plames.api.user.User;
+import enterprises.inwaiders.plames.api.utils.DescribedFunctionResult;
+import enterprises.inwaiders.plames.api.utils.DescribedFunctionResult.Status;
 
 @Component("SpringTransactionStrategy")
 @Scope("singleton")

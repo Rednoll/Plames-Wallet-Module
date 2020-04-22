@@ -20,18 +20,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.inwaiders.plames.api.event.EventEngine;
-import com.inwaiders.plames.api.event.EventStage;
-import com.inwaiders.plames.api.user.User;
-import com.inwaiders.plames.domain.user.impl.UserImpl;
 import com.inwaiders.plames.modules.wallet.dao.wallet.WalletRepository;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
-import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountImpl;
+import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.currency.Currency;
 import com.inwaiders.plames.modules.wallet.domain.currency.impl.CurrencyImpl;
 import com.inwaiders.plames.modules.wallet.domain.events.CreateWalletEvent;
 import com.inwaiders.plames.modules.wallet.domain.wallet.Wallet;
 import com.inwaiders.plames.modules.wallet.domain.wallet.WalletHlRepository;
+
+import enterprises.inwaiders.plames.api.event.EventEngine;
+import enterprises.inwaiders.plames.api.event.EventStage;
+import enterprises.inwaiders.plames.api.user.User;
+import enterprises.inwaiders.plames.domain.user.impl.UserImpl;
 
 @Entity(name = "Wallet")
 @Table(name = "wallet_wallets")
@@ -47,7 +48,7 @@ public class WalletImpl implements Wallet {
 	@JoinColumn(name = "owner_id")
 	private User owner = null;
 	
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = CurrencyAccountImpl.class, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = CurrencyAccountBase.class, orphanRemoval = true, fetch = FetchType.EAGER)
 	@MapKeyJoinColumn(name = "currency_id")
 	@MapKeyClass(CurrencyImpl.class)
 	private Map<Currency, CurrencyAccount> privateAccounts = new HashMap<>();

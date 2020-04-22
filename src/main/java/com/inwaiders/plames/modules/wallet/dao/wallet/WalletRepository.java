@@ -10,8 +10,9 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.inwaiders.plames.api.user.User;
 import com.inwaiders.plames.modules.wallet.domain.wallet.impl.WalletImpl;
+
+import enterprises.inwaiders.plames.api.user.User;
 
 @Repository
 public interface WalletRepository extends JpaRepository<WalletImpl, Long>{

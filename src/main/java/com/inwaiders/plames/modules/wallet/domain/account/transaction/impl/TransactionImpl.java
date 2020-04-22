@@ -12,17 +12,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.inwaiders.plames.api.user.User;
-import com.inwaiders.plames.api.utils.DescribedFunctionResult;
-import com.inwaiders.plames.domain.user.impl.UserImpl;
 import com.inwaiders.plames.modules.wallet.dao.account.transaction.TransactionRepository;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
-import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountImpl;
+import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.account.transaction.Transaction;
 import com.inwaiders.plames.modules.wallet.domain.account.transaction.TransactionHlRepository;
 import com.inwaiders.plames.modules.wallet.domain.account.transaction.strategy.TransactionStrategy;
 import com.inwaiders.plames.modules.wallet.domain.currency.Currency;
 import com.inwaiders.plames.modules.wallet.domain.currency.impl.CurrencyImpl;
+
+import enterprises.inwaiders.plames.api.user.User;
+import enterprises.inwaiders.plames.api.utils.DescribedFunctionResult;
+import enterprises.inwaiders.plames.domain.user.impl.UserImpl;
 
 @Entity(name = "Transaction")
 @Table(name = "wallet_transactions")
@@ -40,11 +41,11 @@ public class TransactionImpl implements Transaction{
 	@JoinColumn(name = "sender_id")
 	public User sender = null;
 	
-	@ManyToOne(targetEntity = CurrencyAccountImpl.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = CurrencyAccountBase.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "source_id")
 	public CurrencyAccount source = null;
 	
-	@ManyToOne(targetEntity = CurrencyAccountImpl.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = CurrencyAccountBase.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "destination_id")
 	public CurrencyAccount destination = null;
 	

@@ -4,17 +4,10 @@ import java.util.List;
 
 import org.jboss.logging.Logger;
 
-import com.inwaiders.plames.api.command.CommandRegistry;
-import com.inwaiders.plames.api.event.EventEngine;
-import com.inwaiders.plames.api.event.EventStage;
-import com.inwaiders.plames.api.user.User;
-import com.inwaiders.plames.domain.messenger.profile.impl.SystemProfile;
-import com.inwaiders.plames.domain.module.impl.ModuleBase;
-import com.inwaiders.plames.domain.user.events.UserCreateEvent;
-import com.inwaiders.plames.domain.user.impl.UserImpl;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccountHlRepository;
-import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountImpl;
+import com.inwaiders.plames.modules.wallet.domain.account.PrivateCurrencyAccount;
+import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.account.transaction.impl.TransactionImpl;
 import com.inwaiders.plames.modules.wallet.domain.account.transaction.strategy.impl.SpringTransactionStrategy;
 import com.inwaiders.plames.modules.wallet.domain.commands.WalletCommand;
@@ -28,11 +21,20 @@ import com.inwaiders.plames.modules.wallet.domain.wallet.WalletHlRepository;
 import com.inwaiders.plames.modules.wallet.domain.wallet.handlers.CreateCurrencyWalletHandler;
 import com.inwaiders.plames.modules.wallet.domain.wallet.handlers.CreateUserWalletHandler;
 import com.inwaiders.plames.modules.wallet.domain.wallet.impl.WalletImpl;
-import com.inwaiders.plames.modules.webcontroller.domain.module.BaseWebDescription;
-import com.inwaiders.plames.modules.webcontroller.domain.module.WebDescribedModule;
-import com.inwaiders.plames.modules.webcontroller.domain.module.WebDescription;
-import com.inwaiders.plames.modules.webcontroller.domain.module.button.Button;
-import com.inwaiders.plames.spring.ApplicationContextProvider;
+
+import enterprises.inwaiders.plames.api.command.CommandRegistry;
+import enterprises.inwaiders.plames.api.event.EventEngine;
+import enterprises.inwaiders.plames.api.event.EventStage;
+import enterprises.inwaiders.plames.api.user.User;
+import enterprises.inwaiders.plames.domain.messenger.profile.impl.SystemProfile;
+import enterprises.inwaiders.plames.domain.module.impl.ModuleBase;
+import enterprises.inwaiders.plames.domain.user.events.UserCreateEvent;
+import enterprises.inwaiders.plames.domain.user.impl.UserImpl;
+import enterprises.inwaiders.plames.modules.webcontroller.domain.module.BaseWebDescription;
+import enterprises.inwaiders.plames.modules.webcontroller.domain.module.WebDescribedModule;
+import enterprises.inwaiders.plames.modules.webcontroller.domain.module.WebDescription;
+import enterprises.inwaiders.plames.modules.webcontroller.domain.module.button.Button;
+import enterprises.inwaiders.plames.spring.ApplicationContextProvider;
 
 public class WalletModule extends ModuleBase implements WebDescribedModule {
 
@@ -57,7 +59,7 @@ public class WalletModule extends ModuleBase implements WebDescribedModule {
 	
 		WalletHlRepository.setInstance(new WalletImpl.HighLevelRepository());
 		CurrencyHlRepository.setRepository(new CurrencyImpl.HighLevelRepository());
-		CurrencyAccountHlRepository.setRepository(new CurrencyAccountImpl.HighLevelRepository());
+		CurrencyAccountHlRepository.setRepository(new CurrencyAccountBase.HighLevelRepository());
 	
 		CommandRegistry registry = CommandRegistry.getDefaultRegistry();
 			registry.registerCommand(new WalletCommand());
@@ -104,8 +106,8 @@ public class WalletModule extends ModuleBase implements WebDescribedModule {
 				
 				if(wallet.getPrivateAccount(currency) == null) {
 					
-					CurrencyAccount account = CurrencyAccount.create(currency, owner.getNickname());
-						account.getOwners().add(owner);
+					PrivateCurrencyAccount account = (PrivateCurrencyAccount) CurrencyAccount.create(currency, owner.getNickname(), "private");
+						account.setOwner(owner);
 						
 					account.save();
 						

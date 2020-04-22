@@ -1,17 +1,18 @@
 package com.inwaiders.plames.modules.wallet.domain.commands;
 
-import com.inwaiders.plames.api.command.CommandException;
-import com.inwaiders.plames.api.messenger.profile.UserProfile;
-import com.inwaiders.plames.api.user.User;
-import com.inwaiders.plames.api.utils.DescribedFunctionResult;
-import com.inwaiders.plames.domain.messenger.command.MessengerCommand;
 import com.inwaiders.plames.modules.wallet.WalletModule;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
-import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountImpl;
+import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.account.transaction.impl.TransactionImpl;
 import com.inwaiders.plames.modules.wallet.domain.currency.impl.CurrencyImpl;
 import com.inwaiders.plames.modules.wallet.spring.WalletSpringPortal;
-import com.inwaiders.plames.system.utils.MessageUtils;
+
+import enterprises.inwaiders.plames.api.command.CommandException;
+import enterprises.inwaiders.plames.api.messenger.profile.UserProfile;
+import enterprises.inwaiders.plames.api.user.User;
+import enterprises.inwaiders.plames.api.utils.DescribedFunctionResult;
+import enterprises.inwaiders.plames.domain.messenger.command.MessengerCommand;
+import enterprises.inwaiders.plames.system.utils.MessageUtils;
 
 public class WalletTransactionCommand extends MessengerCommand {
 
@@ -50,14 +51,14 @@ public class WalletTransactionCommand extends MessengerCommand {
 				throw new CommandException("$wallet.command.exception.amount_incorrect", WalletSpringPortal.CONFIG.getDelimetersRow());
 			}
 		
-		CurrencyAccount sourceAccount = CurrencyAccountImpl.parseAccount(currency, sourceName, user, true);
+		CurrencyAccount sourceAccount = CurrencyAccountBase.parseAccount(currency, sourceName, user, true);
 			
 			if(sourceAccount == null) {
 				
 				throw new CommandException("$wallet.currency_account.not_found", sourceName);
 			}
 		
-		CurrencyAccount destinationAccount = CurrencyAccountImpl.parseAccount(currency, destinationName, user, true);
+		CurrencyAccount destinationAccount = CurrencyAccountBase.parseAccount(currency, destinationName, user, true);
 			
 			if(destinationAccount == null) {
 				

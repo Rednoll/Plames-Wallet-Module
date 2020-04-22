@@ -14,17 +14,18 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.inwaiders.plames.api.event.EventEngine;
-import com.inwaiders.plames.api.event.EventStage;
-import com.inwaiders.plames.api.locale.PlamesLocale;
-import com.inwaiders.plames.dao.EntityLink;
 import com.inwaiders.plames.modules.wallet.dao.currency.CurrencyRepository;
-import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountImpl;
+import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.currency.Currency;
 import com.inwaiders.plames.modules.wallet.domain.currency.CurrencyHlRepository;
 import com.inwaiders.plames.modules.wallet.domain.events.CreateCurrencyEvent;
 import com.inwaiders.plames.modules.wallet.spring.WalletSpringPortal;
-import com.inwaiders.plames.spring.SpringUtils;
+
+import enterprises.inwaiders.plames.api.event.EventEngine;
+import enterprises.inwaiders.plames.api.event.EventStage;
+import enterprises.inwaiders.plames.api.locale.PlamesLocale;
+import enterprises.inwaiders.plames.dao.EntityLink;
+import enterprises.inwaiders.plames.spring.SpringUtils;
 
 @Entity(name = "Currency")
 @Table(name = "wallet_currencies")
@@ -209,9 +210,9 @@ public class CurrencyImpl implements Currency {
 	
 		long result = 0;
 		
-		List<CurrencyAccountImpl> accounts = CurrencyAccountImpl.getByCurrency(this);
+		List<CurrencyAccountBase> accounts = CurrencyAccountBase.getByCurrency(this);
 	
-		for(CurrencyAccountImpl account : accounts) {
+		for(CurrencyAccountBase account : accounts) {
 			
 			result += account.getBalance();
 		}

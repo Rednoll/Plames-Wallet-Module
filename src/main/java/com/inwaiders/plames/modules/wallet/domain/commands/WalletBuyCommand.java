@@ -1,20 +1,21 @@
 package com.inwaiders.plames.modules.wallet.domain.commands;
 
-import com.inwaiders.plames.api.command.CommandException;
-import com.inwaiders.plames.api.locale.PlamesLocale;
-import com.inwaiders.plames.api.messenger.profile.UserProfile;
-import com.inwaiders.plames.api.user.User;
-import com.inwaiders.plames.api.utils.DescribedFunctionResult;
-import com.inwaiders.plames.domain.messenger.command.MessengerCommand;
 import com.inwaiders.plames.modules.paygate.domain.billing.gateway.PaymentGateway;
 import com.inwaiders.plames.modules.wallet.WalletModule;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
-import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountImpl;
+import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.bill.CurrencyBill;
 import com.inwaiders.plames.modules.wallet.domain.currency.MicrotransactionCurrency;
 import com.inwaiders.plames.modules.wallet.domain.currency.impl.CurrencyImpl;
 import com.inwaiders.plames.modules.wallet.spring.WalletSpringPortal;
-import com.inwaiders.plames.system.utils.MessageUtils;
+
+import enterprises.inwaiders.plames.api.command.CommandException;
+import enterprises.inwaiders.plames.api.locale.PlamesLocale;
+import enterprises.inwaiders.plames.api.messenger.profile.UserProfile;
+import enterprises.inwaiders.plames.api.user.User;
+import enterprises.inwaiders.plames.api.utils.DescribedFunctionResult;
+import enterprises.inwaiders.plames.domain.messenger.command.MessengerCommand;
+import enterprises.inwaiders.plames.system.utils.MessageUtils;
 
 public class WalletBuyCommand extends MessengerCommand {
 
@@ -76,7 +77,7 @@ public class WalletBuyCommand extends MessengerCommand {
 				throw new CommandException("$wallet.command.buy.amount_incorrect", WalletSpringPortal.CONFIG.getDelimetersRow());
 			}
 				
-		CurrencyAccount account = CurrencyAccountImpl.parseAccount(currency, accountName, user, true);
+		CurrencyAccount account = CurrencyAccountBase.parseAccount(currency, accountName, user, true);
 	
 			if(account == null) {
 				

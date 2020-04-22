@@ -1,15 +1,16 @@
 package com.inwaiders.plames.modules.wallet.domain.commands;
 
-import com.inwaiders.plames.api.command.CommandException;
-import com.inwaiders.plames.api.messenger.profile.UserProfile;
-import com.inwaiders.plames.api.user.User;
-import com.inwaiders.plames.api.utils.DescribedFunctionResult;
-import com.inwaiders.plames.domain.messenger.command.MessengerCommand;
-import com.inwaiders.plames.domain.user.impl.UserImpl;
 import com.inwaiders.plames.modules.wallet.WalletModule;
-import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountImpl;
+import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.currency.impl.CurrencyImpl;
-import com.inwaiders.plames.system.utils.MessageUtils;
+
+import enterprises.inwaiders.plames.api.command.CommandException;
+import enterprises.inwaiders.plames.api.messenger.profile.UserProfile;
+import enterprises.inwaiders.plames.api.user.User;
+import enterprises.inwaiders.plames.api.utils.DescribedFunctionResult;
+import enterprises.inwaiders.plames.domain.messenger.command.MessengerCommand;
+import enterprises.inwaiders.plames.domain.user.impl.UserImpl;
+import enterprises.inwaiders.plames.system.utils.MessageUtils;
 
 public class WalletOpCommand extends MessengerCommand {
 
@@ -41,7 +42,7 @@ public class WalletOpCommand extends MessengerCommand {
 			throw new CommandException("$wallet.currency.not_found", currencySign);
 		}
 		
-		CurrencyAccountImpl account = CurrencyAccountImpl.getByCurrencyAndName(currency, accountName, false);
+		CurrencyAccountBase account = CurrencyAccountBase.getByCurrencyAndName(currency, accountName, false);
 	
 		if(account == null) {
 			

@@ -2,18 +2,19 @@ package com.inwaiders.plames.modules.wallet.domain.commands;
 
 import java.util.Collection;
 
-import com.inwaiders.plames.api.command.CommandException;
-import com.inwaiders.plames.api.messenger.profile.UserProfile;
-import com.inwaiders.plames.api.user.User;
-import com.inwaiders.plames.domain.messenger.command.MessengerCommand;
 import com.inwaiders.plames.modules.wallet.WalletModule;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
-import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountImpl;
+import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.currency.Currency;
 import com.inwaiders.plames.modules.wallet.domain.currency.impl.CurrencyImpl;
 import com.inwaiders.plames.modules.wallet.domain.wallet.Wallet;
 import com.inwaiders.plames.modules.wallet.domain.wallet.impl.WalletImpl;
-import com.inwaiders.plames.system.utils.MessageUtils;
+
+import enterprises.inwaiders.plames.api.command.CommandException;
+import enterprises.inwaiders.plames.api.messenger.profile.UserProfile;
+import enterprises.inwaiders.plames.api.user.User;
+import enterprises.inwaiders.plames.domain.messenger.command.MessengerCommand;
+import enterprises.inwaiders.plames.system.utils.MessageUtils;
 
 public class WalletCommand extends MessengerCommand {
 
@@ -78,7 +79,7 @@ public class WalletCommand extends MessengerCommand {
 				throw new CommandException("Currency "+currencySign+" not found!");
 			}
 			
-			CurrencyAccountImpl account = CurrencyAccountImpl.getByCurrencyAndName(currency, accountName);
+			CurrencyAccountBase account = CurrencyAccountBase.getByCurrencyAndName(currency, accountName);
 			
 			if(account == null) {
 				

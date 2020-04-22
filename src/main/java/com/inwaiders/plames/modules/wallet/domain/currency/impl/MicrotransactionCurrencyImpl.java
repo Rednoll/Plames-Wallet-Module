@@ -6,8 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.inwaiders.plames.api.locale.PlamesLocale;
 import com.inwaiders.plames.modules.wallet.domain.currency.MicrotransactionCurrency;
+
+import enterprises.inwaiders.plames.api.locale.PlamesLocale;
 
 @Entity(name = "MicrotransactionCurrency")
 @Table(name = "wallet_microtransaction_currencies")

@@ -7,15 +7,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.inwaiders.plames.api.messenger.profile.UserProfile;
-import com.inwaiders.plames.api.user.User;
-import com.inwaiders.plames.domain.messenger.profile.impl.UserProfileBase;
 import com.inwaiders.plames.modules.paygate.domain.billing.BillBase;
 import com.inwaiders.plames.modules.wallet.WalletModule;
 import com.inwaiders.plames.modules.wallet.domain.account.CurrencyAccount;
-import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountImpl;
+import com.inwaiders.plames.modules.wallet.domain.account.impl.CurrencyAccountBase;
 import com.inwaiders.plames.modules.wallet.domain.currency.Currency;
-import com.inwaiders.plames.system.utils.MessageUtils;
+
+import enterprises.inwaiders.plames.api.messenger.profile.UserProfile;
+import enterprises.inwaiders.plames.api.user.User;
+import enterprises.inwaiders.plames.domain.messenger.profile.impl.UserProfileBase;
+import enterprises.inwaiders.plames.system.utils.MessageUtils;
 
 @Entity(name = "CurrencyBill")
 @Table(name = "wallet_currency_bills")
@@ -24,7 +25,7 @@ public class CurrencyBill extends BillBase {
 	@Column(name = "currency_amount")
 	private long currencyAmount = 0;
 
-	@OneToOne(targetEntity = CurrencyAccountImpl.class, fetch = FetchType.EAGER)
+	@OneToOne(targetEntity = CurrencyAccountBase.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "account_id")
 	private CurrencyAccount account;
 
